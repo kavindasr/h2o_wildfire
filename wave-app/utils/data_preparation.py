@@ -99,8 +99,12 @@ class dataPreparator():
 
 
 
-def main():
-	file = '../data/viirs-snpp_2016_Australia.csv'
+def main(file_name):
+	if (file_name):
+		file = file_name
+	else:
+		file = '../data/viirs-snpp_2016_Australia.csv'
+		
 	data_preparator = dataPreparator(file)
 	data_preparator.import_data()
 	data_preparator.handle_type()
@@ -109,6 +113,3 @@ def main():
 	data_preparator.normalization()
 	data_preparator.save_data()
 
-
-if __name__ == "__main__":
-    main()
