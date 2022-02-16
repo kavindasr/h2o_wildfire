@@ -31,7 +31,7 @@ async def data(q:Q):
         fields=df_head.columns.tolist(),
         rows=df_head.values.tolist()
     )
-    q.page['df'] = ui.form_card(box=ui.box('data'), items=[
+    q.page['df'] = ui.form_card(box=ui.box('home'), items=[
         ui.combobox(name='datasets', label='Datasets', choices=app_datasets, value=val),
         ui.buttons(justify='center', items=[
             ui.button(name='describe', label='Describe', primary=True),

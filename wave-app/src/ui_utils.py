@@ -2,7 +2,7 @@ from h2o_wave import main, app, Q, ui
 
 # Tabs for the app's navigation menu.
 tabs = [
-    ui.tab(name='data', label='Data', icon='DiagnosticDataBarTooltip'),
+    ui.tab(name='home', label='Home', icon='Home'),
     ui.tab(name='model', label='Model', icon='BuildDefinition'),
     ui.tab(name='predict', label='Predict', icon='CRMCustomerInsightsApp')
 ]

@@ -32,7 +32,7 @@ async def layouts(q:Q):
                 ui.zone('tabs'),
                 # Zone for the actual content and data.
                 ui.zone(name='body', size='1', zones=[
-                    ui.zone(name='data'),
+                    ui.zone(name='home'),
                     ui.zone('predict', align='center'),
                     ui.zone(name='map'),
                 ]),
@@ -54,7 +54,7 @@ async def handler(q: Q):
     await render_menu(q)
 
     # Handler for each tab / menu option.
-    if q.client.tabs == "data":
+    if q.client.tabs == "home":
         await data.data(q)
 
     # elif q.client.tabs == "model":
