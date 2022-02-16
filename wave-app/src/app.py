@@ -2,7 +2,7 @@ from h2o_wave import main, app, Q, ui
 
 from .ui_utils import *
 from .initializers import *
-#from . import data, model, predict
+from . import data #, model, predict
 
 @app('/')
 async def serve(q: Q):
@@ -54,8 +54,8 @@ async def handler(q: Q):
     await render_menu(q)
 
     # Handler for each tab / menu option.
-    # if q.client.tabs == "data":
-    #     await data.data(q)
+    if q.client.tabs == "data":
+        await data.data(q)
 
     # elif q.client.tabs == "model":
     #     await model.model(q)
