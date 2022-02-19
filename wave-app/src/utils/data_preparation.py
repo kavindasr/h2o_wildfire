@@ -111,5 +111,24 @@ def main(file_name):
 	data_preparator.feature_engineering()
 	data_preparator.add_counts()
 	data_preparator.normalization()
+	return data_preparator
+
+def save_data(file_name):
+	if ((file_name) and (file_name != '')):
+		file = file_name
+	else:
+		file = '../data/viirs-snpp_2016_Australia.csv'
+
+	data_preparator = main(file_name)
 	data_preparator.save_data()
 
+def return_data(file_name):
+	if ((file_name) and (file_name != '')):
+		file = file_name
+	else:
+		file = '../data/viirs-snpp_2016_Australia.csv'
+
+	data_preparator = main(file_name)
+	data = data_preparator.return_data()
+	print(data)
+	return data
