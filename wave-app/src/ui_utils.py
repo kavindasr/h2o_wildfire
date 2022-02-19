@@ -43,7 +43,7 @@ async def make_markdown_table(fields, rows):
 
 # Each time a new tab is rendered, clean the 'body' zone, i.e. delete the pages for the other tabs.
 async def reset_pages(q:Q):
-    pages = ['df', 'map', 'models', 'metrics', 'options']
+    pages = ['df', 'map', 'models', 'metrics', 'options', 'scale']
 
     for page in pages:
         del q.page[page]
