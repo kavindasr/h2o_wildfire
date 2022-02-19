@@ -17,17 +17,6 @@ async def predict(q: Q):
     if q.args.describe:
         val = q.args.datasets
 
-    q.page['scale'] = ui.tall_info_card(
-        box='predict',
-        name='info_card',
-        title='Info Card',
-        caption='Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-        category='Category',
-        label='Click me',
-        #image='https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    )
-    await q.page.save()
-
     # Display the head of the dataframe as a ui markdown table.
     df = q.app.datasets[val]
     # Update map card to notify scatter plot is being made.
