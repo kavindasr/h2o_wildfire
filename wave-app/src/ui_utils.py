@@ -2,7 +2,8 @@ from h2o_wave import main, app, Q, ui
 
 # Tabs for the app's navigation menu.
 tabs = [
-    ui.tab(name='home', label='Home', icon='Home'),
+    ui.tab(name='home', label='Dashboard', icon='Home'),
+    ui.tab(name='search', label='Search', icon='CRMCustomerInsightsApp'),
     ui.tab(name='model', label='Model', icon='BuildDefinition'),
     ui.tab(name='predict', label='Predict', icon='CRMCustomerInsightsApp')
 ]
@@ -43,7 +44,7 @@ async def make_markdown_table(fields, rows):
 
 # Each time a new tab is rendered, clean the 'body' zone, i.e. delete the pages for the other tabs.
 async def reset_pages(q:Q):
-    pages = ['df', 'map', 'models', 'metrics', 'options', 'home']
+    pages = ['df', 'map', 'models', 'metrics', 'options', 'home', 'content1', 'content2', 'search']
 
     for page in pages:
         del q.page[page]

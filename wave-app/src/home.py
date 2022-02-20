@@ -1,4 +1,5 @@
-from h2o_wave import main, app, Q, ui
+from h2o_wave import main, app, Q, ui, data
+import random
 import os
 from .ui_utils import make_markdown_table
 from .plot import *
@@ -67,8 +68,11 @@ async def home(q:Q):
         ui.text_l("### More on High Fire Alert Regions"),
     ])
 
-    for i in range(0,5):
-        q.page[f'card{i}'] = ui.form_card(box=ui.box('content1', width='250px', height='350px'),
+    for i in range(0,2):
+        df_filter = filter_data(df, df_values[i][0],df_values[i][1])
+        df_filter['ds'] = df_filter['ds'].astype(str)
+
+        q.page[f'card{i}'] = ui.form_card(box=ui.box('content1', width='600px'),
                                         title='',
                                         items=[
                                             ui.inline(items=[
@@ -76,30 +80,44 @@ async def home(q:Q):
                                                 ui.text_m(f'### {i+1}-{location_response[i].split(",")[0]}'),
                                             ]),
                                             ui.separator(),
+                                            ui.slider(name='slider_disabled', label='Estimated Risk', min=0, max=100, step=10, value=int(df_values[i][9]*100),disabled=True, width='400px'),
                                             ui.inline(items=[
-                                                ui.text_s('Total Fire Count'),
+                                                ui.text_m('- Total Fire Count(since 2013)'),
                                                 ui.text_l(f'{str(df_values[i][3])}'),
                                             ]),
                                             ui.inline(items=[
-                                                ui.text_s('Estimated Fire Area'),
-                                                ui.text_l(f'{str(df_values[i][7])}'),
+                                                ui.text_m('- Estimated Fire Area (kha)'),
+                                                ui.text_l(f'{str(df_values[i][7]/10)}'),
                                             ]),
                                             ui.inline(items=[
-                                                ui.text_s('Power(MegaWatt)'),
+                                                ui.text_m('- Power(MegaWatt)'),
                                                 ui.text_l(f'{str(df_values[i][6])}'),
                                             ]),
                                              ui.inline(items=[
-                                                ui.text_s('Brightness'),
+                                                ui.text_m('- Brightness'),
                                                 ui.text_l(f'{str(df_values[i][5])}'),
                                             ]),
                                             ui.separator(),
-                                            ui.slider(name='slider_disabled', label='Confidence', min=0, max=100, step=10, value=df_values[i][4],
-                                            disabled=True),
+                                            ui.visualization(
+                                                plot=ui.plot([
+                                                    ui.mark(type='area', x_scale='time', x='=ds', y='=y', curve='smooth', y_min=0),
+                                                    ui.mark(type='line', x='=ds', y='=y', curve='smooth')
+                                                ]),
+                                                data=data(
+                                                    fields=df_filter.columns.tolist(),
+                                                    rows=df_filter.values.tolist(),
+                                                    pack=True,
+                                                ),
+                                            ),
                                         ],
                                         )
+    await q.page.save()
 
-    for i in range(5,10):
-        q.page[f'card{i}'] = ui.form_card(box=ui.box('content2', width='250px', height='350px'),
+    for i in range(2,4):
+        df_filter = filter_data(df, df_values[i][0],df_values[i][1])
+        df_filter['ds'] = df_filter['ds'].astype(str)
+
+        q.page[f'card{i}'] = ui.form_card(box=ui.box('content2', width='600px'),
                                         title='',
                                         items=[
                                             ui.inline(items=[
@@ -107,28 +125,52 @@ async def home(q:Q):
                                                 ui.text_m(f'### {i+1}-{location_response[i].split(",")[0]}'),
                                             ]),
                                             ui.separator(),
+                                            ui.slider(name='slider_disabled', label='Estimated Risk', min=0, max=100, step=10, value=int(df_values[i][9]*100),disabled=True, width='400px'),
                                             ui.inline(items=[
-                                                ui.text_s('Total Fire Count'),
+                                                ui.text_m('- Total Fire Count(since 2013)'),
                                                 ui.text_l(f'{str(df_values[i][3])}'),
                                             ]),
                                             ui.inline(items=[
-                                                ui.text_s('Estimated Fire Area'),
-                                                ui.text_l(f'{str(df_values[i][7])}'),
+                                                ui.text_m('- Estimated Fire Area(kha)'),
+                                                ui.text_l(f'{str(df_values[i][7]/10)}'),
                                             ]),
                                             ui.inline(items=[
-                                                ui.text_s('Power(MegaWatt)'),
+                                                ui.text_m('- Power(MegaWatt)'),
                                                 ui.text_l(f'{str(df_values[i][6])}'),
                                             ]),
                                              ui.inline(items=[
-                                                ui.text_s('Brightness'),
+                                                ui.text_m('- Brightness'),
                                                 ui.text_l(f'{str(df_values[i][5])}'),
                                             ]),
                                             ui.separator(),
-                                            ui.slider(name='slider_disabled', label='Confidence', min=0, max=100, step=10, value=df_values[i][4],
-                                            disabled=True),
+                                            ui.visualization(
+                                                plot=ui.plot([
+                                                    ui.mark(type='area', x_scale='time', x='=ds', y='=y', curve='smooth', y_min=0),
+                                                    ui.mark(type='line', x='=ds', y='=y', curve='smooth')
+                                                ]),
+                                                data=data(
+                                                    fields=df_filter.columns.tolist(),
+                                                    rows=df_filter.values.tolist(),
+                                                    pack=True,
+                                                ),
+                                            ),
                                         ],
                                         )
 
     await q.page.save()
 
-    print(filter_data(df, -29.5, 123.9))
+    # q.page['topic2'] = ui.plot_card(
+    #         box=ui.box('content2'),
+    #         title='Area + Line, smooth',
+    #         data=data(
+    #             fields=df_filter.columns.tolist(),
+    #             rows=df_filter.values.tolist(),
+    #         ),
+    #         plot=ui.plot([
+    #             ui.mark(type='area', x_scale='time', x='=ds', y='=y', curve='smooth', y_min=0),
+    #             ui.mark(type='line', x='=ds', y='=y', curve='smooth')
+    #         ])
+    # )
+    
+    # await q.page.save()
+

@@ -3,7 +3,7 @@ from h2o_wave import main, app, Q, ui
 from .ui_utils import *
 from .initializers import *
 
-from . import data, home, predict #, model
+from . import data, home, predict, search #, model
 
 @app('/')
 async def serve(q: Q):
@@ -80,6 +80,9 @@ async def handler(q: Q):
 
     # elif q.client.tabs == "model":
     #     await model.model(q)
+
+    elif q.client.tabs == "search":
+        await search.search(q)
 
     elif q.client.tabs == "predict":
         await predict.predict(q)
