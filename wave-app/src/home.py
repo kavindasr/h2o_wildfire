@@ -86,21 +86,22 @@ async def home(q:Q):
                                                 ui.text_l(f'{str(df_values[i][3])}'),
                                             ]),
                                             ui.inline(items=[
-                                                ui.text_m('- Estimated Fire Area (kha)'),
+                                                ui.text_m('- Total Burned Fire Area(kha)'),
                                                 ui.text_l(f'{str(df_values[i][7]/10)}'),
                                             ]),
                                             ui.inline(items=[
-                                                ui.text_m('- Power(MegaWatt)'),
+                                                ui.text_m('- Total Radiative Power(MegaWatt)'),
                                                 ui.text_l(f'{str(df_values[i][6])}'),
                                             ]),
                                              ui.inline(items=[
-                                                ui.text_m('- Brightness'),
+                                                ui.text_m('- Mean Brightness'),
                                                 ui.text_l(f'{str(df_values[i][5])}'),
                                             ]),
                                             ui.separator(),
+                                            ui.text_m('### Weekly Estimated Risk Chart since 2013'),
                                             ui.visualization(
                                                 plot=ui.plot([
-                                                    ui.mark(type='area', x_scale='time', x='=ds', y='=y', curve='smooth', y_min=0),
+                                                    ui.mark(type='area', x_scale='time', x='=ds', y='=y',x_title='Weeks',y_title='Risk',curve='smooth', y_min=0),
                                                     ui.mark(type='line', x='=ds', y='=y', curve='smooth')
                                                 ]),
                                                 data=data(
@@ -131,21 +132,22 @@ async def home(q:Q):
                                                 ui.text_l(f'{str(df_values[i][3])}'),
                                             ]),
                                             ui.inline(items=[
-                                                ui.text_m('- Estimated Fire Area(kha)'),
+                                                ui.text_m('- Total Burned Fire Area(kha)'),
                                                 ui.text_l(f'{str(df_values[i][7]/10)}'),
                                             ]),
                                             ui.inline(items=[
-                                                ui.text_m('- Power(MegaWatt)'),
+                                                ui.text_m('- Total Radiative Power(MegaWatt)'),
                                                 ui.text_l(f'{str(df_values[i][6])}'),
                                             ]),
                                              ui.inline(items=[
-                                                ui.text_m('- Brightness'),
+                                                ui.text_m('- Mean Brightness'),
                                                 ui.text_l(f'{str(df_values[i][5])}'),
                                             ]),
                                             ui.separator(),
+                                            ui.text_m('### Weekly Estimated Risk Chart since 2013'),
                                             ui.visualization(
                                                 plot=ui.plot([
-                                                    ui.mark(type='area', x_scale='time', x='=ds', y='=y', curve='smooth', y_min=0),
+                                                    ui.mark(type='area', x_scale='time', x='=ds', y='=y', x_title='Weeks',y_title='Estimated Risk',curve='smooth', y_min=0),
                                                     ui.mark(type='line', x='=ds', y='=y', curve='smooth')
                                                 ]),
                                                 data=data(
