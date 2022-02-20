@@ -6,7 +6,7 @@ def filterLocation(aus_fires,latitude,longitude):
     return filtered
 
 
-def main(aus_fires,lat,lng):
+def filter_data(aus_fires,lat,lng):
     filtered = filterLocation(aus_fires,lat,lng)
 
     df = filtered.filter(['time','ranking'])

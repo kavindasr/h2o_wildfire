@@ -3,6 +3,7 @@ import os
 from .ui_utils import make_markdown_table
 from .plot import *
 from .geo_api import get_address, get_res
+from .utils.filter_location import filter_data
 
 # Functions for data tab.
 
@@ -129,3 +130,5 @@ async def home(q:Q):
                                         )
 
     await q.page.save()
+
+    print(filter_data(df, -29.5, 123.9))
