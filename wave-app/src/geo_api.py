@@ -12,3 +12,9 @@ def get_res(list_of_urls):
     with ThreadPoolExecutor(max_workers=10) as pool:
         response_list = list(pool.map(get_address,list_of_urls))
         return response_list
+
+def get_location(city, state):
+    url = f"https://nominatim.openstreetmap.org/search?city={city}&state={state}&country=Australia&format=json"
+    res = requests.get(url)
+    resJson = res.json()[0]
+    return (resJson["lat"], resJson["lon"])
