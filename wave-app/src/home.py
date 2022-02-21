@@ -160,19 +160,3 @@ async def home(q:Q):
                                         )
 
     await q.page.save()
-
-    # q.page['topic2'] = ui.plot_card(
-    #         box=ui.box('content2'),
-    #         title='Area + Line, smooth',
-    #         data=data(
-    #             fields=df_filter.columns.tolist(),
-    #             rows=df_filter.values.tolist(),
-    #         ),
-    #         plot=ui.plot([
-    #             ui.mark(type='area', x_scale='time', x='=ds', y='=y', curve='smooth', y_min=0),
-    #             ui.mark(type='line', x='=ds', y='=y', curve='smooth')
-    #         ])
-    # )
-    
-    # await q.page.save()
-

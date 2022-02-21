@@ -55,7 +55,8 @@ async def layouts(q:Q):
                         align='center', 
                         # Align cards on the main-axis (vertical direction for COLUMN and horizontal for ROW).
                         justify='around' 
-                    )
+                    ),
+                    ui.zone(name='predict_res'),
                 ]),
                 # App footer of fixed sized, aligned in the center.
                 ui.zone(name='footer', size='120px', align='center')
