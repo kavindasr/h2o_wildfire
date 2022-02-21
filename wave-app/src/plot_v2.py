@@ -8,9 +8,9 @@ token = "pk.eyJ1Ijoia3NycmFqIiwiYSI6ImNrenV6NTVvdDB1OXIyb21oemNtZWh1azcifQ._qZ-A
 def show_bush_fires(df: pd.DataFrame):
     aus_fires = df.copy()
     
-    sample = aus_fires[(aus_fires.time >= '2019-09-01') & (aus_fires.time <= '2020-03-31')]
+    sample = aus_fires[(aus_fires.time >= '2020-03-30') & (aus_fires.time <= '2020-03-31')]
     px.set_mapbox_access_token(token)
-    fig = px.scatter_mapbox(sample, lat='latitude', lon='longitude', color='fire_count', size='est_fire_area', color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
+    fig = px.scatter_mapbox(sample, lat='latitude', lon='longitude', color='ranking', title="Wildfires in past 24 hours", size='est_fire_area', color_continuous_scale=px.colors.sequential.matter, size_max=15, zoom=3)
     return fig
 
 
