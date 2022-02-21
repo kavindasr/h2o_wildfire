@@ -6,3 +6,4 @@ matplotlib==3.4.3
 kaleido==0.2.1
 requests == 2.27.1 
 sklearn == 1.0.1
+prophet==1.0.1
