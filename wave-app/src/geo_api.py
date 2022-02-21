@@ -7,3 +7,9 @@ def get_address(lat, lon):
     address = res.json()
     return address["display_name"]
 
+
+def get_location(city, state):
+    url = f"https://nominatim.openstreetmap.org/search?city={city}&state={state}&country=Australia&format=json"
+    res = requests.get(url)
+    resJson = res.json()
+    return (resJson.lat, resJson.lon)
