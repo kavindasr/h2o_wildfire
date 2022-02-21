@@ -1,5 +1,5 @@
 from h2o_wave import main, app, Q, ui
-from .plot import *
+from .plot_v2 import *
 
 BUSHFIRE_INFO = '''
 ### 2019–20 Australian bushfire season
