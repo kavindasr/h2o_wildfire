@@ -67,7 +67,6 @@ async def predict_results(q:Q, val:str):
     output = predict(df, -32.4,123.5)
     print(output["message"])
     if output["message"] == "Success":
-        print("This is a success")
         html = pio.to_html(output["data"][0])
 
         q.page['search'] = ui.form_card(box='predict_res', items=[
