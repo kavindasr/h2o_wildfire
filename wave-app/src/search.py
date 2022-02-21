@@ -22,13 +22,38 @@ async def search(q:Q):
         fields=df_head.columns.tolist(),
         rows=df_head.values.tolist()
     )
-    q.page['df'] = ui.form_card(box=ui.box('home'), items=[
-        ui.combobox(name='datasets', label='Datasets', choices=app_datasets, value=val),
-        ui.buttons(justify='center', items=[
-            ui.button(name='describe', label='Describe', primary=True),
+    q.page['card1'] = ui.form_card(box=ui.box('content1'), items=[
+        # ui.text_l("### Prediction"),
+        ui.text_m("#### Predict by City and State"),
+        ui.text_s("Enter the city and state of Australia"),
+        ui.inline(items=[
+            ui.textbox(name='textbox_required', label='City', required=True),
+            ui.textbox(name='textbox_required', label='State', required=True),
         ]),
-        ui.text(open('markdowns/firms_info.md').read()),
-        ui.separator(),
-        ui.text(df_table),
+        ui.button(name='button', label='Predict', primary=True),
+        # ui.text_m("#### Predict by Latitude and Longitude"),
+        # ui.text_s("Enter a region within the range"),
+        # ui.inline(items=[
+        #     ui.textbox(name='textbox_required', label='Latitude', required=True),
+        #     ui.textbox(name='textbox_required', label='Longitude', required=True),
+        #     ui.button(name='button', label='')
+        # ]),
+    ])
+    q.page['card2'] = ui.form_card(box=ui.box('content1'), items=[
+        # ui.text_l("### Prediction"),
+        ui.text_m("#### Predict by Latitude and Longitude"),
+        ui.text_s("Enter the city and state of Australia"),
+        ui.inline(items=[
+            ui.textbox(name='textbox_required', label='Latitude', required=True),
+            ui.textbox(name='textbox_required', label='Longitude', required=True),
+        ]),
+        ui.button(name='button', label='Predict', primary=True),
+        # ui.text_m("#### Predict by Latitude and Longitude"),
+        # ui.text_s("Enter a region within the range"),
+        # ui.inline(items=[
+        #     ui.textbox(name='textbox_required', label='Latitude', required=True),
+        #     ui.textbox(name='textbox_required', label='Longitude', required=True),
+        #     ui.button(name='button', label='')
+        # ]),
     ])
     await q.page.save() 
