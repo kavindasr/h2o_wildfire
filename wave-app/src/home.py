@@ -9,6 +9,12 @@ from .utils.filter_location import filter_data
 # Functions for data tab.
 
 async def home(q:Q):
+
+    q.page['home'] = ui.form_card(box='home', items=[
+        ui.progress(label='Loading dashboard data... ')
+    ])
+    await q.page.save()
+    
     # Get existing datasets for the app.
     app_datasets = list(q.app.datasets.keys())
     # Select dataset from user input or the first dataset.
