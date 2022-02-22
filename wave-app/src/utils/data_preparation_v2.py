@@ -122,7 +122,7 @@ def run_preprocessor(file):
 
 
 def update_csv(file):
-    output_path = "../../data/australia_viirs_prepared.csv.gz"
+    output_path = "data/australia_viirs_prepared.csv.gz"
     df_old = import_old_data(output_path)
     print("Load old data")
     df_new = run_preprocessor(file)
