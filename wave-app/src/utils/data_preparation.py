@@ -130,5 +130,4 @@ def return_data(file_name):
 
 	data_preparator = main(file_name)
 	data = data_preparator.return_data()
-	print(data)
 	return data
