@@ -4,6 +4,7 @@ from .ui_utils import make_markdown_table
 import pandas as pd
 from .utils.predict import predict
 from plotly import io as pio
+from .geo_api import get_location
 
 
 # Functions for data tab.
@@ -19,17 +20,14 @@ async def search(q:Q):
     # Display the head of the dataframe as a ui markdown table.
     df = q.app.datasets[val]
     df_head = df.sample(6)
-    df_table = await make_markdown_table(
-        fields=df_head.columns.tolist(),
-        rows=df_head.values.tolist()
-    )
+   
     q.page['card1'] = ui.form_card(box=ui.box('content1'), items=[
         # ui.text_l("### Prediction"),
         ui.text_m("#### Predict by City and State"),
         ui.text_s("Enter the city and state of Australia"),
         ui.inline(items=[
-            ui.textbox(name='textbox_required', label='City', required=True),
-            ui.textbox(name='textbox_required', label='State', required=True),
+            ui.textbox(name='city', label='City', required=True),
+            ui.textbox(name='state', label='State', required=True),
         ]),
         ui.button(name='predict1', label='Predict', primary=True),
     ])
@@ -37,45 +35,103 @@ async def search(q:Q):
     q.page['card2'] = ui.form_card(box=ui.box('content1'), items=[
         # ui.text_l("### Prediction"),
         ui.text_m("#### Predict by Latitude and Longitude"),
-        ui.text_s("Enter the city and state of Australia"),
+        ui.text_s("Enter the Latitude and Longitude within Autralia"),
         ui.inline(items=[
-            ui.textbox(name='latitude', label='Latitude', required=True),
-            ui.textbox(name='longitude', label='Longitude', required=True),
+            ui.textbox(name='latitude', label='Latitude', required=True, placeholder="Enter a value in range (-40, -9)", width="250px"),
+            ui.textbox(name='longitude', label='Longitude', required=True, placeholder="Enter a value in range (112, 155)", width="250px"),
         ]),
         ui.button(name='predict2', label='Predict', primary=True),
     ])
     await q.page.save() 
 
     if q.args.predict1:
-        print("button 1 clocked")
+        await predict_results_by_loc(q,val)
 
     if q.args.predict2:
-        await predict_results(q, val)
+        await predict_results_by_cor(q,val)
 
-async def predict_results(q:Q, val:str):
+async def predict_results_by_loc(q:Q, val:str):
     df = q.app.datasets[val]
-    print(q.args.latitude)
-    data_latitude = q.args.latitude
-    data_longitude = q.args.longitude
-    print(data_longitude)
+    data_city = q.args.city
+    data_state = q.args.state
     
-    # Update map card to notify that predictions are being made.
-    q.page['search'] = ui.form_card(box='predict_res', items=[
-        ui.progress(label=f'Making predictions for')
+    q.page['search'] = ui.form_card(box='predict_res1', items=[
+        ui.progress(label=f'Making predictions for Location ({data_city},{data_state})')
     ])
     await q.page.save()
-    output = predict(df, -32.4,123.5)
-    print(output["message"])
-    if output["message"] == "Success":
-        html = pio.to_html(output["data"][0])
 
-        q.page['search'] = ui.form_card(box='predict_res', items=[
-            ui.frame(content=html, height='500px')
+    loc_res = get_location(data_city, data_state)
+    print(loc_res)
+
+    if (loc_res == "NotFound"):
+        q.page['search'] = ui.form_card(box='predict_res1', items=[
+            ui.message_bar(type='warning', text="This location is not found. Please Try Again"),
+        ])
+        await q.page.save()
+    else:
+        latitu = round(float(loc_res[0]),1)
+        longi = round(float(loc_res[1]),1)
+        print(latitu)
+        print(longi)
+
+    output = predict(df, latitu,longi)
+
+    if output["message"] == "Success":
+        html_fig1 = pio.to_html(output["data"][0])
+        html_fig3 = pio.to_html(output["data"][2])
+
+        q.page['search'] = ui.form_card(box='predict_res1', items=[
+            ui.text("### Figure 1"),
+            ui.frame(content=html_fig1, width='1000px', height="600px"),
+        ])
+        await q.page.save()
+
+        q.page['home'] = ui.form_card(box='predict_res2', items=[
+            ui.text("### Figure 3"),
+            ui.frame(content=html_fig3, width='1000px', height="600px")
         ])
         await q.page.save()
 
     else:
-        print("No data")
+        q.page['search'] = ui.form_card(box='predict_res1', items=[
+             ui.message_bar(type='warning', text=output["message"]),
+        ])
+        await q.page.save()
+
+async def predict_results_by_cor(q:Q, val:str):
+    df = q.app.datasets[val]
+    data_latitude = float(q.args.latitude.strip())
+    data_longitude = float(q.args.longitude.strip())
+    
+    q.page['search'] = ui.form_card(box='predict_res1', items=[
+        ui.progress(label=f'Making predictions for Location ({data_latitude},{data_longitude})')
+    ])
+    await q.page.save()
+
+    output = predict(df, data_latitude,data_longitude)
+
+    if output["message"] == "Success":
+        html_fig1 = pio.to_html(output["data"][0])
+        html_fig3 = pio.to_html(output["data"][2])
+
+        q.page['search'] = ui.form_card(box='predict_res1', items=[
+            ui.text("### Figure 1"),
+            ui.frame(content=html_fig1, width='1000px', height="630px"),
+        ])
+        await q.page.save()
+
+        q.page['home'] = ui.form_card(box='predict_res2', items=[
+            ui.text("### Figure 3"),
+            ui.frame(content=html_fig3, width='1000px', height="630px")
+        ])
+        await q.page.save()
+
+    else:
+        q.page['search'] = ui.form_card(box='predict_res1', items=[
+             ui.message_bar(type='warning', text=output["message"]),
+        ])
+        await q.page.save()
+
 
     
 

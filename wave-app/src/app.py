@@ -1,4 +1,5 @@
 from h2o_wave import main, app, Q, ui
+from sklearn.linear_model import HuberRegressor
 
 from .ui_utils import *
 from .initializers import *
@@ -56,7 +57,8 @@ async def layouts(q:Q):
                         # Align cards on the main-axis (vertical direction for COLUMN and horizontal for ROW).
                         justify='around' 
                     ),
-                    ui.zone(name='predict_res'),
+                    ui.zone(name='predict_res1'),
+                    ui.zone(name='predict_res2'),
                 ]),
                 # App footer of fixed sized, aligned in the center.
                 ui.zone(name='footer', size='120px', align='center')
