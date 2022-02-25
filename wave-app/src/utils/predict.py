@@ -72,7 +72,7 @@ def main(aus_fires, lat, lng):
 
         response = {
             "data": [fig1, fig2, fig3, fig4],
-            "table": [table1,table2]
+            "table": [table1,table2],
             "message": "Success"
         }
 
