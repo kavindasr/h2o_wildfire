@@ -2,6 +2,7 @@ from h2o_wave import main, app, Q, ui
 import os
 from .ui_utils import make_markdown_table
 import pandas as pd
+from .nasa_api import last_24h_data
 # from .model import *
 
 
@@ -46,3 +47,5 @@ async def load_datasets(q: Q):
         df = pd.read_csv(path, parse_dates=['time'])
         # Add this dataset to the list of app's datasets.
         q.app.datasets[path] = df
+
+    q.app.datasets['last24h'] = last_24h_data()
