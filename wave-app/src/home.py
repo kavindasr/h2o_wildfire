@@ -66,6 +66,13 @@ async def home(q:Q):
 
     await q.page.save()
 
+    val = app_datasets[0]
+    if q.args.describe:
+        val = q.args.datasets
+
+    # Display the head of the dataframe as a ui markdown table.
+    df = q.app.datasets[val]
+
     #Get top 4 frequent fire regions
     df_freq = df.sort_values(["loc_count"],ascending = False)
     df_freq = df_freq.drop_duplicates(subset = ["latitude"])
