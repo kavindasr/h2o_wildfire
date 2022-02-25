@@ -7,7 +7,7 @@ from .initializers import *
 from . import data, home, predict, search #, model
 from .nasa_api import cronjob
 
-task = asyncio.create_task(cronjob())
+# task = asyncio.create_task(cronjob())
 
 @app('/')
 async def serve(q: Q):
@@ -26,7 +26,7 @@ async def serve(q: Q):
 
 # A FLEX LAYOUT FOR AN ADAPTIVE UI
 async def layouts(q:Q):
-    q.page['meta'] = ui.meta_card(box='', theme='h2o-dark', title = 'Challenge Wildfires | H2O Olympics', layouts=[
+    q.page['meta'] = ui.meta_card(box='', theme='h2o-dark', title = 'Australian WildFire Predictor | Team DeepMind', layouts=[
         # Apply layout to all viewport widths.
         ui.layout(breakpoint='xs', zones=[
             # Predefine app's wrapper height to 100% viewpoer height.

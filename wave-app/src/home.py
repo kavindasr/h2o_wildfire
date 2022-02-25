@@ -8,6 +8,15 @@ from .utils.filter_location import main
 
 # Functions for data tab.
 
+RiskInfo = ''' 
+#### The estimated risk is calculated based on 
+- #### Confidence Level 
+- #### Total fire count per day 
+- #### Total Burned Fire Area 
+- #### Total Radiative Power emitted 
+#### with different weights
+'''
+
 async def home(q:Q):
 
     q.page['home'] = ui.form_card(box='home', items=[
@@ -49,9 +58,9 @@ async def home(q:Q):
     ]
 
     q.page['home'] = ui.form_card(box=ui.box('home'), items=[
-        ui.text_l("### High Fire Alert Regions for Last 24 Hours"),
-        ui.text_m("Considering most recent 24 hours data captured by VIIRS satellite following regions shows higher fire rates"),
-        # ui.text(df_table),
+        ui.text_l("## High Fire Alert Regions for Last 24 Hours"),
+        ui.text_m("### Considering most recent 24 hours data captured by VIIRS satellite following regions shows higher fire rates"),
+        ui.text(RiskInfo),
         ui.table(
             name='stats',
             columns=columns,
@@ -88,7 +97,7 @@ async def home(q:Q):
 
 
     q.page['topic'] = ui.form_card(box=ui.box('predict'), items=[
-        ui.text_l("### Frequent Fire Ocurring Regions"),
+        ui.text_l("### Top 4 Frequent Fire Ocurring Regions"),
     ])
 
     for i in range(0,2):
@@ -105,7 +114,7 @@ async def home(q:Q):
                                             ui.separator(),
                                             ui.slider(name='slider_disabled', label='Estimated Risk', min=0, max=100, step=10, value=int(df_freq[i][9]*100),disabled=True, width='400px'),
                                             ui.inline(items=[
-                                                ui.text_m('- Total Fire Count(since 2013)'),
+                                                ui.text_m('- Total Fire Count(since 2012)'),
                                                 ui.text_l(f'{str(df_freq[i][3])}'),
                                             ]),
                                             ui.inline(items=[
@@ -167,7 +176,7 @@ async def home(q:Q):
                                                 ui.text_l(f'{str(df_freq[i][5])}'),
                                             ]),
                                             ui.separator(),
-                                            ui.text_m('### Weekly Estimated Risk Chart since 2013'),
+                                            ui.text_m('### Weekly Estimated Risk Chart since 2012'),
                                             ui.visualization(
                                                 plot=ui.plot([
                                                     ui.mark(type='area', x_scale='time', x='=ds', y='=y', x_title='Weeks',y_title='Estimated Risk',curve='smooth', y_min=0),
