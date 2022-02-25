@@ -16,5 +16,8 @@ def get_res(list_of_urls):
 def get_location(city, state):
     url = f"https://nominatim.openstreetmap.org/search?city={city}&state={state}&country=Australia&format=json"
     res = requests.get(url)
-    resJson = res.json()[0]
-    return (resJson["lat"], resJson["lon"])
+    if(res.json() == []):
+        return "NotFound"
+    else:
+        resJson = res.json()[0]
+        return (resJson["lat"], resJson["lon"])

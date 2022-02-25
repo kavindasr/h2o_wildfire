@@ -1,4 +1,5 @@
 import pandas as pd
+from datetime import date
 
 def filterLocation(aus_fires,latitude,longitude):
     ## aus_fires = DataFrame
@@ -6,7 +7,7 @@ def filterLocation(aus_fires,latitude,longitude):
     return filtered
 
 
-def filter_data(aus_fires,lat,lng):
+def main(aus_fires,lat,lng):
     filtered = filterLocation(aus_fires,lat,lng)
 
     df = filtered.filter(['time','ranking'])
@@ -18,9 +19,15 @@ def filter_data(aus_fires,lat,lng):
     df_w.set_index('ds', inplace=True)
     df_w.index = pd.to_datetime(df_w.index)
     df_w = df_w.resample('1W').mean()
-
     df_w['y'] = df_w['y'].fillna(0)
 
-    df_w.reset_index('ds', inplace=True)
+    # Add missing weeks
+    max_date = df.ds.max()
+    end = date.today()
+    if (max_date<end):
+        r = pd.date_range(start=df.ds.min(), end=end,freq='W')
+        df_w = df_w.reindex(r).fillna(0.0).rename_axis('ds').reset_index()
+    else:
+        df_w.reset_index('ds', inplace=True)
 
     return df_w
