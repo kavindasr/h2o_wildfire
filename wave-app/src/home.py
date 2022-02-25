@@ -101,7 +101,11 @@ async def home(q:Q):
     ])
 
     for i in range(0,2):
-        df_filter = main(df, df_freq[i][0],df_freq[i][1])
+        response = main(df, df_freq[i][0],df_freq[i][1])
+        df_filter = response["df"]
+        print('hiii', df_filter)
+        total_data = response["tot_val"]
+        print(total_data)
         df_filter['ds'] = df_filter['ds'].astype(str)
 
         q.page[f'card{i}'] = ui.form_card(box=ui.box('content1', width='600px'),
@@ -112,22 +116,17 @@ async def home(q:Q):
                                                 ui.text_m(f'### {i+1}-{freq_location_response[i].split(",")[0]}'),
                                             ]),
                                             ui.separator(),
-                                            ui.slider(name='slider_disabled', label='Estimated Risk', min=0, max=100, step=10, value=int(df_freq[i][9]*100),disabled=True, width='400px'),
                                             ui.inline(items=[
                                                 ui.text_m('- Total Fire Count(since 2012)'),
-                                                ui.text_l(f'{str(df_freq[i][3])}'),
+                                                ui.text_l(f'{str(total_data["total_fire_count"])}'),
                                             ]),
                                             ui.inline(items=[
-                                                ui.text_m('- Total Burned Fire Area(kha)'),
-                                                ui.text_l(f'{str(df_freq[i][7]/10)}'),
+                                                ui.text_m('- Total Burned Fire Area(ha)'),
+                                                ui.text_l(f'{str(total_data["total_est_fire_area"])}'),
                                             ]),
                                             ui.inline(items=[
                                                 ui.text_m('- Total Radiative Power(MegaWatt)'),
-                                                ui.text_l(f'{str(df_freq[i][6])}'),
-                                            ]),
-                                            ui.inline(items=[
-                                                ui.text_m('- Mean Brightness'),
-                                                ui.text_l(f'{str(df_freq[i][5])}'),
+                                                ui.text_l(f'{str(total_data["total_frp"])}'),
                                             ]),
                                             ui.separator(),
                                             ui.text_m('### Weekly Estimated Risk Chart since 2012'),
@@ -147,7 +146,11 @@ async def home(q:Q):
     await q.page.save()
 
     for i in range(2,4):
-        df_filter = main(df, df_freq[i][0],df_freq[i][1])
+        response = main(df, df_freq[i][0],df_freq[i][1])
+        df_filter = response["df"]
+        print('hiii', df_filter)
+        total_data = response["tot_val"]
+        print(total_data)
         df_filter['ds'] = df_filter['ds'].astype(str)
 
         q.page[f'card{i}'] = ui.form_card(box=ui.box('content2', width='600px'),
@@ -158,22 +161,17 @@ async def home(q:Q):
                                                 ui.text_m(f'### {i+1}-{freq_location_response[i].split(",")[0]}'),
                                             ]),
                                             ui.separator(),
-                                            ui.slider(name='slider_disabled', label='Estimated Risk', min=0, max=100, step=10, value=int(df_freq[i][9]*100),disabled=True, width='400px'),
                                             ui.inline(items=[
                                                 ui.text_m('- Total Fire Count(since 2012)'),
-                                                ui.text_l(f'{str(df_freq[i][3])}'),
+                                                ui.text_l(f'{str(total_data["total_fire_count"])}'),
                                             ]),
                                             ui.inline(items=[
-                                                ui.text_m('- Total Burned Fire Area(kha)'),
-                                                ui.text_l(f'{str(df_freq[i][7]/10)}'),
+                                                ui.text_m('- Total Burned Fire Area(ha)'),
+                                                ui.text_l(f'{str(total_data["total_est_fire_area"])}'),
                                             ]),
                                             ui.inline(items=[
                                                 ui.text_m('- Total Radiative Power(MegaWatt)'),
-                                                ui.text_l(f'{str(df_freq[i][6])}'),
-                                            ]),
-                                             ui.inline(items=[
-                                                ui.text_m('- Mean Brightness'),
-                                                ui.text_l(f'{str(df_freq[i][5])}'),
+                                                ui.text_l(f'{str(total_data["total_frp"])}'),
                                             ]),
                                             ui.separator(),
                                             ui.text_m('### Weekly Estimated Risk Chart since 2012'),
