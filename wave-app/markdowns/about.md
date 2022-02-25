@@ -23,9 +23,7 @@ Our goal is to predict wildfires in Australia based on the location. We basicall
 ## About dataset
 FIRMS distributes Near Real-Time (NRT) active fire data within 3 hours of satellite observation from the Moderate Resolution Imaging Spectroradiometer ([MODIS](https://modis.gsfc.nasa.gov/)) aboard the Aqua and Terra satellites, and the Visible Infrared Imaging Radiometer Suite ([VIIRS](https://www.jpss.noaa.gov/viirs.html)) aboard S-NPP and NOAA 20.
 
-![Dataset1](https://github.com/kavindasr/wildfire_images/blob/main/WhatsApp%20Image%202022-02-26%20at%201.13.18%20AM(1).jpeg?raw=true)
-
-![Dataset2](https://github.com/kavindasr/wildfire_images/blob/main/WhatsApp%20Image%202022-02-26%20at%201.13.18%20AM.jpeg?raw=true)
+![Dataset1](https://github.com/kavindasr/wildfire_images/blob/main/WhatsApp%20Image%202022-02-26%20at%202.09.53%20AM.jpeg?raw=true)
 
 ## Features
 ### Dashboard
