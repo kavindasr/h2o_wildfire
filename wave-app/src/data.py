@@ -3,7 +3,6 @@ import os
 from .ui_utils import make_markdown_table
 import pandas as pd
 from .nasa_api import last_24h_data
-# from .model import *
 
 
 # Functions for data tab.
