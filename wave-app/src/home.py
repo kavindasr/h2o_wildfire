@@ -103,9 +103,7 @@ async def home(q:Q):
     for i in range(0,2):
         response = main(df, df_freq[i][0],df_freq[i][1])
         df_filter = response["df"]
-        print('hiii', df_filter)
         total_data = response["tot_val"]
-        print(total_data)
         df_filter['ds'] = df_filter['ds'].astype(str)
 
         q.page[f'card{i}'] = ui.form_card(box=ui.box('content1', width='600px'),
@@ -148,9 +146,7 @@ async def home(q:Q):
     for i in range(2,4):
         response = main(df, df_freq[i][0],df_freq[i][1])
         df_filter = response["df"]
-        print('hiii', df_filter)
         total_data = response["tot_val"]
-        print(total_data)
         df_filter['ds'] = df_filter['ds'].astype(str)
 
         q.page[f'card{i}'] = ui.form_card(box=ui.box('content2', width='600px'),
