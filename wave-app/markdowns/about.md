@@ -9,6 +9,9 @@ Our goal is to predict wildfires in Australia based on the location.
 
 ## How we predict wildfires
 
+## About dataset
+FIRMS distributes Near Real-Time (NRT) active fire data within 3 hours of satellite observation from the Moderate Resolution Imaging Spectroradiometer ([MODIS](https://modis.gsfc.nasa.gov/)) aboard the Aqua and Terra satellites, and the Visible Infrared Imaging Radiometer Suite ([VIIRS](https://www.jpss.noaa.gov/viirs.html)) aboard S-NPP and NOAA 20.
+
 ## Features
 ### Dashboard
 
@@ -16,5 +19,8 @@ Our goal is to predict wildfires in Australia based on the location.
 
 ### Predict
 
-### 
+### Third party APIs
+- Nasa firms modaps API to get lastest data
+- Openstreetmap nominatim to get location details
+
 
