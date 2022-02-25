@@ -18,9 +18,9 @@ def predict_rank(filtered):
     df.rename({'time': 'ds'}, axis=1, inplace=True)
     df.rename({'ranking': 'y'}, axis=1, inplace=True)
 
-    fig1, fig2 = predict(df)
+    fig1, fig2, table1 = predict(df)
 
-    return fig1, fig2
+    return fig1, fig2, table1
 
 
 def predict_area(filtered):
@@ -28,8 +28,8 @@ def predict_area(filtered):
     df.rename({'time': 'ds'}, axis=1, inplace=True)
     df.rename({'est_fire_area': 'y'}, axis=1, inplace=True)
 
-    fig1, fig2 = predict(df)
-    return fig1, fig2
+    fig1, fig2, table2 = predict(df)
+    return fig1, fig2, table2
 
 
 def predict(df):
@@ -72,7 +72,7 @@ def main(aus_fires, lat, lng):
 
         response = {
             "data": [fig1, fig2, fig3, fig4],
-            "table": [table1,table2]
+            "table": [table1,table2],
             "message": "Success"
         }
 
