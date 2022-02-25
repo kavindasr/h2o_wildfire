@@ -4,7 +4,7 @@ import asyncio
 
 from .ui_utils import *
 from .initializers import *
-from . import data, home, predict, search #, model
+from . import data, home, predict, search, about
 from .nasa_api import cronjob
 
 # task = asyncio.create_task(cronjob())
@@ -84,11 +84,11 @@ async def handler(q: Q):
     if q.client.tabs == "home":
         await home.home(q)
 
-    # elif q.client.tabs == "model":
-    #     await model.model(q)
-
     elif q.client.tabs == "search":
         await search.search(q)
 
     elif q.client.tabs == "predict":
         await predict.predict(q)
+
+    elif q.client.tabs == "model":
+        await about.about(q)
