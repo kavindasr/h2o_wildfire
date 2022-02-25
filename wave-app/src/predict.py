@@ -2,11 +2,12 @@ from h2o_wave import main, app, Q, ui
 from .plot_v2 import *
 
 BUSHFIRE_INFO = '''
-### 2019–20 Australian bushfire season
-From September 2019 until March 2020, when the final fire was extinguished, Australia had one of the worst bush fire seasons in its recorded history.
-As it can be seen from the satellite dataset New South Wales and Victoria have been worst affected.
-More than five million hectares, destroying more than 2,400 houses and forcing thousands to seek shelter elsewhere.
-Source [wiki](https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season) [bbc](https://www.bbc.com/news/world-australia-50951043)
+## Wildfire Map of Last 24 Hours
+
+- #### In Australia the peak fire season typically begins in early August and lasts around 27 weeks.
+- #### There were 66,510 VIIRS fire alerts reported between 1st of March 2021 and 21st of February 2022 considering high confidence alerts only.
+- #### In Australia, 600kha of land has burned so far in 2021.
+
 '''
 
 async def predict(q: Q):

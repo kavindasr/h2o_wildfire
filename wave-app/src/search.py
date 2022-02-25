@@ -85,6 +85,7 @@ async def predict_results_by_loc(q:Q, val:str):
         html_fig3 = pio.to_html(output["data"][2])
 
         q.page['search'] = ui.form_card(box='predict_res1', items=[
+            ui.text(f'## Prediction of the Location ({latitu},{longi}) for next 12 months'),
             ui.text("## Predicted Estimated Risk"),
             ui.inline(justify='center', items=[
                 ui.frame(content=html_fig1, width='1000px', height="600px"),
@@ -93,7 +94,7 @@ async def predict_results_by_loc(q:Q, val:str):
         await q.page.save()
 
         q.page['home'] = ui.form_card(box='predict_res2', items=[
-            ui.text("## Predicted Estimated Fire Area"),
+            ui.text("## Predicted Burned Fire Area"),
             ui.inline(justify='center', items=[
                 ui.frame(content=html_fig3, width='1000px', height="600px")
             ])
@@ -123,6 +124,7 @@ async def predict_results_by_cor(q:Q, val:str):
         html_fig3 = pio.to_html(output["data"][2])
 
         q.page['search'] = ui.form_card(box='predict_res1', items=[
+            ui.text(f'## Prediction of the Location ({data_latitude},{data_longitude}) for next 12 months'),
             ui.text("## Predicted Estimated Risk"),
             ui.inline(justify='center', items=[
                 ui.frame(content=html_fig1, width='1000px', height="630px"),
@@ -132,7 +134,7 @@ async def predict_results_by_cor(q:Q, val:str):
         await q.page.save()
 
         q.page['home'] = ui.form_card(box='predict_res2', items=[
-            ui.text("## Predicted Estimated Fire Area"),
+            ui.text("## Predicted Burned Fire Area"),
             ui.inline(justify='center', items=[
                 ui.frame(content=html_fig3, width='1000px', height="630px")
             ])
