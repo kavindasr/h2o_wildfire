@@ -9,8 +9,8 @@ async def init_client(q: Q):
     # Render the header and footer.
     await init_ui(q)
 
-    # Begin application flow with the data tab.
-    q.client.tabs = 'data'
+    # Begin application flow with the home tab.
+    q.client.tabs = 'home'
 
     # Flag client as initialized.
     q.client.initialized = True

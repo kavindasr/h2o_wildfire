@@ -1,8 +1,13 @@
 from h2o_wave import main, app, Q, ui
+from sklearn.linear_model import HuberRegressor
+import asyncio
 
 from .ui_utils import *
 from .initializers import *
-from . import data #, model, predict
+from . import data, home, predict, search #, model
+from .nasa_api import cronjob
+
+task = asyncio.create_task(cronjob())
 
 @app('/')
 async def serve(q: Q):
@@ -32,9 +37,31 @@ async def layouts(q:Q):
                 ui.zone('tabs'),
                 # Zone for the actual content and data.
                 ui.zone(name='body', size='1', zones=[
-                    ui.zone(name='data'),
+                    ui.zone(name='home'),
                     ui.zone('predict', align='center'),
                     ui.zone(name='map'),
+                    ui.zone(
+                        name='content1',
+                        direction=ui.ZoneDirection.ROW,
+                        # Specify a zone size, otherwise will be adapted to the biggest card in the zone.
+                        #size='500px', 
+                        # Align cards on the cross-axis (vertical direction for ROW and horizontal for COLUMN).
+                        align='center', 
+                        # Align cards on the main-axis (vertical direction for COLUMN and horizontal for ROW).
+                        justify='around' 
+                    ),
+                    ui.zone(
+                        name='content2',
+                        direction=ui.ZoneDirection.ROW,
+                        # Specify a zone size, otherwise will be adapted to the biggest card in the zone.
+                        #size='500px', 
+                        # Align cards on the cross-axis (vertical direction for ROW and horizontal for COLUMN).
+                        align='center', 
+                        # Align cards on the main-axis (vertical direction for COLUMN and horizontal for ROW).
+                        justify='around' 
+                    ),
+                    ui.zone(name='predict_res1'),
+                    ui.zone(name='predict_res2'),
                 ]),
                 # App footer of fixed sized, aligned in the center.
                 ui.zone(name='footer', size='120px', align='center')
@@ -54,11 +81,14 @@ async def handler(q: Q):
     await render_menu(q)
 
     # Handler for each tab / menu option.
-    if q.client.tabs == "data":
-        await data.data(q)
+    if q.client.tabs == "home":
+        await home.home(q)
 
     # elif q.client.tabs == "model":
     #     await model.model(q)
 
-    # elif q.client.tabs == "predict":
-    #     await predict.predict(q)
+    elif q.client.tabs == "search":
+        await search.search(q)
+
+    elif q.client.tabs == "predict":
+        await predict.predict(q)
