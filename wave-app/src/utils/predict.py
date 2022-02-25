@@ -49,27 +49,30 @@ def predict(df):
     else:
         df_m.reset_index('ds', inplace=True)
 
-    m = Prophet(yearly_seasonality=5, seasonality_mode='multiplicative')
+    m = Prophet(weekly_seasonality=False,daily_seasonality = False)
+    m.add_seasonality(name='yearly', period=356, fourier_order=30)
     m.fit(df_m)
 
-    future = m.make_future_dataframe(periods=6, freq="m")
+    future = m.make_future_dataframe(periods=12, freq="m")
     forecast = m.predict(future)
+    table = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(12)
 
     fig1 = plot_plotly(m, forecast)
     fig2 = plot_components_plotly(m, forecast)
 
-    return fig1, fig2
+    return fig1, fig2, table
 
 
 def main(aus_fires, lat, lng):
     filtered = filterLocation(aus_fires, lat, lng)
 
     if len(filtered.index) >= 10:
-        fig1, fig2 = predict_rank(filtered)
-        fig3, fig4 = predict_area(filtered)
+        fig1, fig2, table1 = predict_rank(filtered)
+        fig3, fig4, table2 = predict_area(filtered)
 
         response = {
             "data": [fig1, fig2, fig3, fig4],
+            "table": [table1,table2]
             "message": "Success"
         }
 
