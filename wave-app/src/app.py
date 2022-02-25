@@ -7,7 +7,7 @@ from .initializers import *
 from . import data, home, predict, search, about
 from .nasa_api import cronjob
 
-# task = asyncio.create_task(cronjob())
+task = asyncio.create_task(cronjob())
 
 @app('/')
 async def serve(q: Q):
