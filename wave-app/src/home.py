@@ -18,7 +18,7 @@ async def home(q:Q):
     # Get existing datasets for the app.
     app_datasets = list(q.app.datasets.keys())
     # Select dataset from user input or the first dataset.
-    val = app_datasets[0]
+    val = app_datasets[1]
     if q.args.describe:
         val = q.args.datasets
 
@@ -70,6 +70,11 @@ async def home(q:Q):
 
     await q.page.save()
 
+    val = app_datasets[0]
+    if q.args.describe:
+        val = q.args.datasets
+    df = q.app.datasets[val]
+    df_sort = df.sort_values(["ranking"],ascending = False)
     q.page['topic'] = ui.form_card(box=ui.box('predict'), items=[
         ui.text_l("### More on High Fire Alert Regions"),
     ])
