@@ -25,22 +25,26 @@ async def search(q:Q):
         # ui.text_l("### Prediction"),
         ui.text_m("#### Predict by City and State"),
         ui.text_s("Enter the city and state of Australia"),
-        ui.inline(items=[
+        ui.inline(justify='center',items=[
             ui.textbox(name='city', label='City', required=True),
             ui.textbox(name='state', label='State', required=True),
         ]),
-        ui.button(name='predict1', label='Predict', primary=True),
+        ui.inline(justify='center', items=[
+            ui.button(name='predict1', label='Predict', primary=True),
+        ])
     ])
 
     q.page['card2'] = ui.form_card(box=ui.box('content1'), items=[
         # ui.text_l("### Prediction"),
         ui.text_m("#### Predict by Latitude and Longitude"),
         ui.text_s("Enter the Latitude and Longitude within Autralia"),
-        ui.inline(items=[
+        ui.inline(justify='center', items=[
             ui.textbox(name='latitude', label='Latitude', required=True, placeholder="Enter a value in range (-40, -9)", width="250px"),
             ui.textbox(name='longitude', label='Longitude', required=True, placeholder="Enter a value in range (112, 155)", width="250px"),
         ]),
-        ui.button(name='predict2', label='Predict', primary=True),
+        ui.inline(justify='center', items=[
+            ui.button(name='predict2', label='Predict', primary=True),
+        ]) 
     ])
     await q.page.save() 
 
@@ -81,14 +85,18 @@ async def predict_results_by_loc(q:Q, val:str):
         html_fig3 = pio.to_html(output["data"][2])
 
         q.page['search'] = ui.form_card(box='predict_res1', items=[
-            ui.text("### Predicted Estimated Risk"),
-            ui.frame(content=html_fig1, width='1000px', height="600px"),
+            ui.text("## Predicted Estimated Risk"),
+            ui.inline(justify='center', items=[
+                ui.frame(content=html_fig1, width='1000px', height="600px"),
+            ])        
         ])
         await q.page.save()
 
         q.page['home'] = ui.form_card(box='predict_res2', items=[
-            ui.text("### Predicted Estimated Fire Area"),
-            ui.frame(content=html_fig3, width='1000px', height="600px")
+            ui.text("## Predicted Estimated Fire Area"),
+            ui.inline(justify='center', items=[
+                ui.frame(content=html_fig3, width='1000px', height="600px")
+            ])
         ])
         await q.page.save()
 
@@ -100,8 +108,8 @@ async def predict_results_by_loc(q:Q, val:str):
 
 async def predict_results_by_cor(q:Q, val:str):
     df = q.app.datasets[val]
-    data_latitude = float(q.args.latitude.strip())
-    data_longitude = float(q.args.longitude.strip())
+    data_latitude = round(float(q.args.latitude.strip()),1)
+    data_longitude = round(float(q.args.longitude.strip()),1)
     
     q.page['search'] = ui.form_card(box='predict_res1', items=[
         ui.progress(label=f'Making predictions for Location ({data_latitude},{data_longitude})')
@@ -115,14 +123,20 @@ async def predict_results_by_cor(q:Q, val:str):
         html_fig3 = pio.to_html(output["data"][2])
 
         q.page['search'] = ui.form_card(box='predict_res1', items=[
-            ui.text("### Predicted Estimated Risk"),
-            ui.frame(content=html_fig1, width='1000px', height="630px"),
+            ui.text("## Predicted Estimated Risk"),
+            ui.inline(justify='center', items=[
+                ui.frame(content=html_fig1, width='1000px', height="630px"),
+            ])
+            
         ])
         await q.page.save()
 
         q.page['home'] = ui.form_card(box='predict_res2', items=[
-            ui.text("### Predicted Estimated Fire Area"),
-            ui.frame(content=html_fig3, width='1000px', height="630px")
+            ui.text("## Predicted Estimated Fire Area"),
+            ui.inline(justify='center', items=[
+                ui.frame(content=html_fig3, width='1000px', height="630px")
+            ])
+            
         ])
         await q.page.save()
 
