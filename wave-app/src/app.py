@@ -26,7 +26,7 @@ async def serve(q: Q):
 
 # A FLEX LAYOUT FOR AN ADAPTIVE UI
 async def layouts(q:Q):
-    q.page['meta'] = ui.meta_card(box='', theme='h2o-dark', title = 'Australian WildFire Predictor | Team DeepMind', layouts=[
+    q.page['meta'] = ui.meta_card(box='', theme='h2o-dark', title = 'Australia WildFire Predictor | Team DeepMind', layouts=[
         # Apply layout to all viewport widths.
         ui.layout(breakpoint='xs', zones=[
             # Predefine app's wrapper height to 100% viewpoer height.

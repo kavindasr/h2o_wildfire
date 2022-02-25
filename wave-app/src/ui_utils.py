@@ -10,7 +10,7 @@ tabs = [
 
 # Display header and footer just once per client.
 async def init_ui(q: Q):
-    q.page['header'] = ui.header_card(box='header', title='Australian WildFire Predictor', subtitle='Team DeepMind',
+    q.page['header'] = ui.header_card(box='header', title='Australia WildFire Predictor', subtitle='Team DeepMind',
         icon='LightningBolt', icon_color='Black'
     )
 
