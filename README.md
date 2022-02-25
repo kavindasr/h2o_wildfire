@@ -15,6 +15,8 @@ Starter kit for H2O.ai [Wildfire Challenge](https://www.h2o.ai/wildfire).
 
 4. Install `tar` (or an alternative, to create a compressed archive file for submission)
 
+5. Visit to mapbox and create a token. Add this token to wave-app/src/plot_v2.py
+
 ### 1. Run the H2O Wave Server
 
 Go to your H2O Wave SDK directory and run the Wave server:

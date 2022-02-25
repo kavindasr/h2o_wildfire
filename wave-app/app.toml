@@ -1,6 +1,6 @@
 [App]
 Name = "challenge-wildfires-submission-deepMind"
-Version = "1.0"
+Version = "1.1"
 Title = "Wildfire Challenge Submission Title deepMind"
 Description = "Wildfire Challenge Submission Description deepMind."
 LongDescription = "about.md"
