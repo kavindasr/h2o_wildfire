@@ -38,14 +38,10 @@ def main(aus_fires,lat,lng):
     max_date = df.ds.max()
     end = date.today()
     if (max_date<end):
-        print('hiiiiii')
         r = pd.date_range(start=df.ds.min(), end=end,freq='W')
         df_w = df_w.reindex(r).fillna(0.0).rename_axis('ds').reset_index()
-        print(df_w)
-        print(type(df_w))
     else:
         df_w.reset_index('ds', inplace=True)
 
     response = {'df':df_w, 'tot_val':tot_val}
-    print(type(response['df']))
     return response
