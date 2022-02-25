@@ -18,7 +18,7 @@ async def home(q:Q):
     # Get existing datasets for the app.
     app_datasets = list(q.app.datasets.keys())
     # Select dataset from user input or the first dataset.
-    val = app_datasets[0]
+    val = app_datasets[1]
     if q.args.describe:
         val = q.args.datasets
 
@@ -78,6 +78,7 @@ async def home(q:Q):
         freq_url_list.append(frq_url)
 
     freq_location_response = get_res(freq_url_list)
+
 
     q.page['topic'] = ui.form_card(box=ui.box('predict'), items=[
         ui.text_l("### Frequent Fire Ocurring Regions"),

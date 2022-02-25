@@ -1,10 +1,13 @@
 from h2o_wave import main, app, Q, ui
 from sklearn.linear_model import HuberRegressor
+import asyncio
 
 from .ui_utils import *
 from .initializers import *
-
 from . import data, home, predict, search #, model
+from .nasa_api import cronjob
+
+task = asyncio.create_task(cronjob())
 
 @app('/')
 async def serve(q: Q):

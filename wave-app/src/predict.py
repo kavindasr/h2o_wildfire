@@ -13,7 +13,7 @@ async def predict(q: Q):
      # Get existing datasets for the app.
     app_datasets = list(q.app.datasets.keys())
     # Select dataset from user input or the first dataset.
-    val = app_datasets[0]
+    val = app_datasets[1]
     if q.args.describe:
         val = q.args.datasets
 
