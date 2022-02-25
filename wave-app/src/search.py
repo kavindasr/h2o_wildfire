@@ -2,7 +2,7 @@ from h2o_wave import main, app, Q, ui
 import os
 from .ui_utils import make_markdown_table
 import pandas as pd
-from .utils.predict import predict
+from .utils.predict import main
 from plotly import io as pio
 from .geo_api import get_location
 
@@ -74,7 +74,7 @@ async def predict_results_by_loc(q:Q, val:str):
         print(latitu)
         print(longi)
 
-    output = predict(df, latitu,longi)
+    output = main(df, latitu,longi)
 
     if output["message"] == "Success":
         html_fig1 = pio.to_html(output["data"][0])
@@ -108,7 +108,7 @@ async def predict_results_by_cor(q:Q, val:str):
     ])
     await q.page.save()
 
-    output = predict(df, data_latitude,data_longitude)
+    output = main(df, data_latitude,data_longitude)
 
     if output["message"] == "Success":
         html_fig1 = pio.to_html(output["data"][0])

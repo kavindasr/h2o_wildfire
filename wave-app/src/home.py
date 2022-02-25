@@ -4,7 +4,7 @@ import os
 from .ui_utils import make_markdown_table
 from .plot import *
 from .geo_api import get_address, get_res
-from .utils.filter_location import filter_data
+from .utils.filter_location import main
 
 # Functions for data tab.
 
@@ -84,7 +84,7 @@ async def home(q:Q):
     ])
 
     for i in range(0,2):
-        df_filter = filter_data(df, df_freq[i][0],df_freq[i][1])
+        df_filter = main(df, df_freq[i][0],df_freq[i][1])
         df_filter['ds'] = df_filter['ds'].astype(str)
 
         q.page[f'card{i}'] = ui.form_card(box=ui.box('content1', width='600px'),
@@ -130,7 +130,7 @@ async def home(q:Q):
     await q.page.save()
 
     for i in range(2,4):
-        df_filter = filter_data(df, df_freq[i][0],df_freq[i][1])
+        df_filter = main(df, df_freq[i][0],df_freq[i][1])
         df_filter['ds'] = df_filter['ds'].astype(str)
 
         q.page[f'card{i}'] = ui.form_card(box=ui.box('content2', width='600px'),
